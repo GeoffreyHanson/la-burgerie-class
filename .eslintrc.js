@@ -7,6 +7,7 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
   ],
+  parser: 'babel-eslint',
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -24,6 +25,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': 0,
     'indent': ['error', 2],
-    'global-require': 1
+    'global-require': 1,
+    'react/require-default-props': 0,
   },
 };

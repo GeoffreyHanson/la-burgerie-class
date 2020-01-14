@@ -16,7 +16,7 @@ const layout = (props) => {
 };
 
 layout.defaultProps = {
-  children: PropTypes.func,
+  children: PropTypes.element,
 };
 
 layout.propTypes = layout.defaultProps;
