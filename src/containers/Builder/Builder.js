@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -21,6 +23,7 @@ class Builder extends Component {
       },
       totalPrice: 4,
       purchasable: false,
+      purchasing: false,
     };
   }
 
@@ -78,6 +81,19 @@ class Builder extends Component {
     this.updatedPurchaseState(updatedIngredients);
   }
 
+  // A handler for understanding if the user is currently reviewing their order.
+  purchaseHandler = () => {
+    this.setState({ purchasing: true });
+  }
+
+  purchaseCancelHandler = () => {
+    this.setState({ purchasing: false });
+  }
+
+  purchaseContinueHandler = () => {
+    alert('You continue!');
+  }
+
   // Checking whether or not to update purchasable
   updatedPurchaseState(ingredients) {
     // const { ingredients } = this.state;
@@ -92,7 +108,9 @@ class Builder extends Component {
   }
 
   render() {
-    const { ingredients, purchasable, totalPrice } = this.state;
+    const {
+      ingredients, purchasable, purchasing, totalPrice,
+    } = this.state;
     const disabledInfo = {
       ...ingredients,
     };
@@ -105,6 +123,13 @@ class Builder extends Component {
 
     return (
       <>
+        <Modal show={purchasing} modalClosed={this.purchaseCancelHandler}>
+          <OrderSummary
+            ingredients={ingredients}
+            purchaseCanceled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+          />
+        </Modal>
         <Burger ingredients={ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
@@ -112,6 +137,7 @@ class Builder extends Component {
           disabled={disabledInfo}
           price={totalPrice}
           purchasable={purchasable}
+          ordered={this.purchaseHandler}
         />
       </>
     );

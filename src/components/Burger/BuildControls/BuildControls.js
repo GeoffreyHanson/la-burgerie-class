@@ -11,7 +11,7 @@ const controls = [
 
 const buildControls = (props) => {
   const {
-    disabled, ingredientAdded, ingredientRemoved, price, purchasable,
+    disabled, ingredientAdded, ingredientRemoved, ordered, price, purchasable,
   } = props;
   return (
     <div className={classes.BuildControls}>
@@ -36,6 +36,7 @@ const buildControls = (props) => {
         type="button"
         className={classes.OrderButton}
         disabled={!purchasable}
+        onClick={ordered}
       >
         ORDER
       </button>
